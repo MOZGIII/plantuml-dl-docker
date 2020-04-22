@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+OUT_FILE="${1?Specify the output file}"
+
+exec curl -sSLo "$OUT_FILE" "$PLANTUML_JAR_URL"

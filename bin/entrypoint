@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ "${SKIP_PLANTUML_DOWNLOAD:-}" != "true" && ! -f "$PLANTUML_JAR" ]]; then
+  mkdir -p "$(dirname "$PLANTUML_JAR")"
+
+  printf "Downloading PlantUML...\n" >&2
+  download-plantuml "$PLANTUML_JAR" >&2
+  printf "... done!\n" >&2
+
+  printf "Downloading JLatexMath...\n" >&2
+  download-jlatexmath "$(dirname "$PLANTUML_JAR")" >&2
+  printf "... done!\n" >&2
+fi
+
+if [[ "$#" -lt 1 ]]; then
+  printf "No command!\n" >&2
+  exit 1
+fi
+
+exec "$@"

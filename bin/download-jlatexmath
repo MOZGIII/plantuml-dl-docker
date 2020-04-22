@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+
+OUT_DIR="${1?Specify the output dir}"
+
+OUT_FILE="$(mktemp)"
+
+curl -sSLo "$OUT_FILE" "$PLANTUML_JLATEXMATH_URL"
+
+unzip "$OUT_FILE" -d "$OUT_DIR"
+
+rm -f "$OUT_FILE"
